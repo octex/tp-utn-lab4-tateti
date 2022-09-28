@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ta te ti!</title>
+        <script src="./game.js"></script>
+    </head>
+    <body>
+        <h1>Ta Te Ti!</h1>
+        <div id="menu">
+            <p>Jugador 1 <input type="text"></p>
+            <p>Jugador 2 <input type="text"></p>
+            <input type="submit" value="Jugar!" onclick="game.start();">
+        </div>
+
+        <div id="game">
+            <p id="timer">Timer: </p>
+            <p>Turno de jugador: </p>
+            <table id="board">
+                <tr>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                </tr>
+                <tr>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                </tr>
+                <tr>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                    <td><button>#</button></td>
+                </tr>
+            </table>
+            <p><button>Rendirse</button>    </p>
+        </div>
+    </body>
+    <script>
+        game = new Game();
+        game.loadMenu();
+    </script>
+</html>
