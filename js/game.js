@@ -1,6 +1,8 @@
 const X = 'X';
 const O = 'O';
 const BASE_TIMER_MINUTES = 1.5
+const TIE = "Empate"
+
 
 class Timer
 {
@@ -62,11 +64,75 @@ class Board
         return this.gameBoard.rows[row].cells[column].getElementsByTagName('button')[0].innerText;
     }
 
-    isAWinner()
+    clearBoard()
     {
-        let firstPos = undefined;
-        let secondPos = undefined;
-        let thirdPos = undefined;
+        for (let i = 0; i < 3; i++)
+        {
+            this.setBoardElementByRowAndColumn(i, 0, '');
+            this.setBoardElementByRowAndColumn(i, 1, '');
+            this.setBoardElementByRowAndColumn(i, 2, '');
+            this.setBoardElementByRowAndColumn(0, i, '');
+            this.setBoardElementByRowAndColumn(1, i, '');
+            this.setBoardElementByRowAndColumn(2, i, '');
+        }
+    }
+
+    isAWinner(player)
+    {
+        let firstPos = null;
+        let secondPos = null;
+        let thirdPos = null;
+        // Horizontal compare
+        for (let i = 0; i < 3; i++)
+        {
+            firstPos = this.getBoardElementByRowAndColum(i, 0);
+            secondPos = this.getBoardElementByRowAndColum(i, 1);
+            thirdPos = this.getBoardElementByRowAndColum(i, 2);
+            if (firstPos == player.getSymbol() &&
+                secondPos == player.getSymbol() &&
+                thirdPos == player.getSymbol())
+            {
+                return true;
+            }
+        }
+
+        // Vertical compare
+        for (let i = 0; i < 3; i++)
+        {
+            firstPos = this.getBoardElementByRowAndColum(0, i);
+            secondPos = this.getBoardElementByRowAndColum(1, i);
+            thirdPos = this.getBoardElementByRowAndColum(2, i);
+            if (firstPos == player.getSymbol() &&
+                secondPos == player.getSymbol() &&
+                thirdPos == player.getSymbol())
+            {
+                return true;
+            }
+        }
+
+        // Diagonal left compare
+        firstPos = this.getBoardElementByRowAndColum(0, 0);
+        secondPos = this.getBoardElementByRowAndColum(1, 1);
+        thirdPos = this.getBoardElementByRowAndColum(2, 2);
+        if (firstPos == player.getSymbol() &&
+            secondPos == player.getSymbol() &&
+            thirdPos == player.getSymbol())
+        {
+            return true;
+        }
+
+        // Diagonal right compare
+        firstPos = this.getBoardElementByRowAndColum(0, 2);
+        secondPos = this.getBoardElementByRowAndColum(1, 1);
+        thirdPos = this.getBoardElementByRowAndColum(2, 0);
+        if (firstPos == player.getSymbol() &&
+            secondPos == player.getSymbol() &&
+            thirdPos == player.getSymbol())
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 
@@ -148,14 +214,21 @@ class Game
         this.menu = document.getElementById("menu");
         this.turnTxt = document.getElementById("turn-txt");
         this.timerClock = undefined;
+        this.winner = null;
+    }
+
+    resetGameProperties()
+    {
+        clearInterval(this.timerClock);
+        this.board.clearBoard();
+        this.timer.resetTimer();
+        this.renderTimer();
     }
 
     loadMenu()
     {
         this.menu.style.display = "";
         this.gameBoard.style.display = "none";
-        clearInterval(this.timerClock);
-        this.timer.resetTimer();
     }
 
     start()
@@ -170,10 +243,17 @@ class Game
         this.timerClock = setInterval(this.renderTimer.bind(this), 1000);
     }
 
+    gameOver()
+    {
+        this.resetGameProperties();
+        this.generateMatchData();
+        this.loadMenu();
+    }
+
     giveUp()
     {
-        let winner = this.playersManager.getOppositePlayer();
-        // Run game over sequence and declare opposite player as winner
+        this.winner = this.playersManager.getOppositePlayer().getName();
+        this.gameOver();
     }
 
     renderTimer()
@@ -188,8 +268,8 @@ class Game
     {
         if (this.timer.getTimer() == 0)
         {
-            this.loadMenu();
-            // Run game over sequence and call it an ace
+            this.winner = TIE;
+            this.gameOver();
         }
     }
 
@@ -202,9 +282,10 @@ class Game
         }
         let cellContent = this.playersManager.currentPlayer.getSymbol();
         this.board.setBoardElementByRowAndColumn(row, column, cellContent);
-        if (this.board.isAWinner())
+        if (this.board.isAWinner(this.playersManager.currentPlayer))
         {
-            // Run win game sequence
+            this.winner = this.playersManager.currentPlayer.getName();
+            this.gameOver();
         }
         else
         {
@@ -215,7 +296,9 @@ class Game
 
     generateMatchData()
     {
-        
+        let match = new Match(this.playersManager.players[X].getName(),
+                              this.playersManager.players[O].getName(),
+                              this.winner);
     }
 }
 

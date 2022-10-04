@@ -1,6 +1,6 @@
-const KEY_MATCHES_SAVE = 'matches'
+import { KEY_MATCHES_SAVE } from "./constants";
 
-function saveMatchData(matchData)
+export function saveMatchData(matchData)
 {
     let currentDataSaved = JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
     if (currentDataSaved == null)
@@ -16,7 +16,7 @@ function saveMatchData(matchData)
     }
 }
 
-function getMatchesData()
+export function getMatchesData()
 {
     return JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
 }

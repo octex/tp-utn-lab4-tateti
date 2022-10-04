@@ -1,4 +1,35 @@
 html
 {
-    /* background-image: url(bck.jpg); */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url(bck.jpg);
+}
+
+.header
+{
+    color: white;
+}
+
+.menu
+{
+    height:0;
+    width:20%;
+    padding-top: 2%;
+    padding-bottom:10%;
+    background-color:rgba(255, 255, 255, 0.465);
+    text-align: center;
+    align-items: center;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+.game-div
+{
+    height:0;
+    width:20%;
+    padding-bottom:15%;
+    background-color:rgba(255, 255, 255, 0.465);
+    text-align: center;
+    align-items: center;
+    color: aliceblue;
+    font-weight: bold;
 }
