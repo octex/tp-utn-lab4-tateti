@@ -1,7 +1,9 @@
 const X = 'X';
 const O = 'O';
+const BLANK_SLOT = '';
 const BASE_TIMER_MINUTES = 1.5
 const TIE = "Empate"
+const KEY_MATCHES_SAVE = 'matches'
 
 
 class Timer
@@ -75,6 +77,23 @@ class Board
             this.setBoardElementByRowAndColumn(1, i, '');
             this.setBoardElementByRowAndColumn(2, i, '');
         }
+    }
+
+    areAllSlotsFull()
+    {
+        for (let i = 0; i < 3; i++)
+        {
+            if (this.getBoardElementByRowAndColum(i, 0) == BLANK_SLOT
+                || this.getBoardElementByRowAndColum(i, 1) == BLANK_SLOT
+                || this.getBoardElementByRowAndColum(i, 2) == BLANK_SLOT
+                || this.getBoardElementByRowAndColum(0, i) == BLANK_SLOT
+                || this.getBoardElementByRowAndColum(1, i) == BLANK_SLOT
+                || this.getBoardElementByRowAndColum(2, i) == BLANK_SLOT)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     isAWinner(player)
@@ -287,6 +306,11 @@ class Game
             this.winner = this.playersManager.currentPlayer.getName();
             this.gameOver();
         }
+        else if (this.board.areAllSlotsFull())
+        {
+            this.winner = TIE;
+            this.gameOver();
+        }
         else
         {
             this.playersManager.switchTurn();
@@ -299,6 +323,7 @@ class Game
         let match = new Match(this.playersManager.players[X].getName(),
                               this.playersManager.players[O].getName(),
                               this.winner);
+        saveMatchData(match);
     }
 }
 
@@ -319,5 +344,26 @@ class Match
             "Ganador": this.winner
         }
         return data;
+    }
+}
+
+function getMatchesData()
+{
+    return JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
+}
+
+function saveMatchData(matchData)
+{
+    let currentDataSaved = JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
+    if (currentDataSaved == null)
+    {
+        let newMatchesList = JSON.stringify([matchData]);
+        localStorage.setItem(KEY_MATCHES_SAVE, newMatchesList);
+    }
+    else
+    {
+        currentDataSaved.push(matchData);
+        currentDataSaved = JSON.stringify(currentDataSaved);
+        localStorage.setItem(KEY_MATCHES_SAVE, currentDataSaved);
     }
 }
