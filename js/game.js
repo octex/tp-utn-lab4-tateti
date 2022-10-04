@@ -86,7 +86,16 @@ class PlayersManager
     {
         let player1Name = document.getElementById("player1Name").value;
         let player2Name = document.getElementById("player2Name").value;
-        //TODO: Validar que en los campos no vengan strings vacios
+        if (player1Name == '' || player2Name == '')
+        {
+            alert("Ingrese los nombres de los jugadores!");
+            return;
+        }
+        else if (player1Name == player2Name)
+        {
+            alert("Los jugadores no pueden llamarse igual");
+            return;
+        }
         this.addPlayer1(player1Name);
         this.addPlayer2(player2Name);
         this.currentPlayer = this.players[X];
@@ -151,6 +160,10 @@ class Game
 
     start()
     {
+        if (!this.playersManager.ready)
+        {
+            return;
+        }
         this.menu.style.display = "none";
         this.gameBoard.style.display = "";
         this.turnTxt.innerText = "Turno de jugador: " + this.playersManager.currentPlayer.getName();
@@ -165,15 +178,17 @@ class Game
 
     renderTimer()
     {
+        this.checkTimerNotZero();
         let timerStr = "Timer " + parseInt(this.timer.getTimer() / 60) + ":" + this.timer.getTimer() % 60;
         document.getElementById("timer").innerHTML = timerStr;
         this.timer.substractTimer();
     }
 
-    checkTimer()
+    checkTimerNotZero()
     {
         if (this.timer.getTimer() == 0)
         {
+            this.loadMenu();
             // Run game over sequence and call it an ace
         }
     }
@@ -196,5 +211,30 @@ class Game
             this.playersManager.switchTurn();
             this.turnTxt.innerText = "Turno de jugador: " + this.playersManager.currentPlayer.getName();
         }
+    }
+
+    generateMatchData()
+    {
+        
+    }
+}
+
+class Match
+{
+    constructor(player1, player2, winner)
+    {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.winner = winner;
+    }
+
+    getMatchData()
+    {
+        data = {
+            "Jugador 1": this.player1,
+            "Jugador 2": this.player2,
+            "Ganador": this.winner
+        }
+        return data;
     }
 }
