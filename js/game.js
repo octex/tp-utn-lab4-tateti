@@ -246,6 +246,7 @@ class Game
 
     loadMenu()
     {
+        generateLeaderBoardTable();
         this.menu.style.display = "";
         this.gameBoard.style.display = "none";
     }
@@ -349,7 +350,12 @@ class Match
 
 function getMatchesData()
 {
-    return JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
+    let matchesData = JSON.parse(localStorage.getItem(KEY_MATCHES_SAVE));
+    if (matchesData == null)
+    {
+        matchesData = [];
+    }
+    return matchesData;
 }
 
 function saveMatchData(matchData)
