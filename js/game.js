@@ -339,9 +339,9 @@ class Match
     getMatchData()
     {
         data = {
-            "Jugador 1": this.player1,
-            "Jugador 2": this.player2,
-            "Ganador": this.winner
+            "player1": this.player1,
+            "player2": this.player2,
+            "winner": this.winner
         }
         return data;
     }
@@ -365,5 +365,21 @@ function saveMatchData(matchData)
         currentDataSaved.push(matchData);
         currentDataSaved = JSON.stringify(currentDataSaved);
         localStorage.setItem(KEY_MATCHES_SAVE, currentDataSaved);
+    }
+}
+
+function generateLeaderBoardTable()
+{
+    let matchesData = getMatchesData();
+    let tableElement = document.getElementById('leaderboard');
+    for(let i = 0; i < matchesData.length; i++)
+    {
+        let tableRow = tableElement.insertRow();
+        let jugador1 = tableRow.insertCell();
+        let jugador2 = tableRow.insertCell();
+        let ganador = tableRow.insertCell();
+        jugador1.innerText = matchesData[i]["player1"];
+        jugador2.innerText = matchesData[i]["player2"];
+        ganador.innerText = matchesData[i]["winner"];
     }
 }
