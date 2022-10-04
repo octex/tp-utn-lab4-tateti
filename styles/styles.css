@@ -62,8 +62,7 @@ html
 
 .leaderboard tr:hover {
     background-color: rgb(255, 128, 189);
-    color: white;
-    font-weight: bold;
+    color: white;    
     transition-duration: 0.2s;
 }
 
@@ -165,9 +164,4 @@ html
     transition-duration: 0.1s;
     color:rgb(83, 52, 75);
     text-shadow: 0px 0px 10px rgb(69, 0, 66);
-}
-
-.give-up
-{
-    
 }
