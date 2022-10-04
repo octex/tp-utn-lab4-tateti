@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ta te ti!</title>
+        <link rel="icon" type="image/x-icon" href="/img/icon.svg">
+        <script src="./js/game.js"></script>
+        <link rel="stylesheet" href="./styles/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1-.0">
+    </head>
+    <body>
+        <div class="message-box" id="message-box">
+            <p id="message-box-text" class="message-box-text"></p>
+            <button class="ui-button" onclick="game.messageBox.hideMessage();">Cerrar</button>
+        </div>
+        <h1 class="header">Ta Te Ti!</h1>
+        <div id="menu" class="menu">
+            <div class="game-start-menu">
+                <p class="player-name">Jugador 1 <input type="text" id="player1Name" class="player-input"></p>
+                <p class="player-name">Jugador 2 <input type="text" id="player2Name" class="player-input"></p>
+                <button class="ui-button" onclick="game.playersManager.addPlayers();game.start();">
+                    Nueva partida
+                </button>
+            </div>
+            <h2 class="header">Marcas</h2>
+            <table id="leaderboard" class="leaderboard">
+            </table>
+        </div>
+
+        <div id="game" class="game-div">
+            <p id="timer">Timer: </p>
+            <p id="turn-txt">Turno de jugador: </p>
+            <table id="board" class="game-board">
+                <tr>
+                    <td><button class="board-button" onclick="game.drawSymbol(0,0);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(0,1);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(0,2);"></button></td>
+                </tr>
+                <tr>
+                    <td><button class="board-button" onclick="game.drawSymbol(1,0);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(1,1);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(1,2);"></button></td>
+                </tr>
+                <tr>
+                    <td><button class="board-button" onclick="game.drawSymbol(2,0);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(2,1);"></button></td>
+                    <td><button class="board-button" onclick="game.drawSymbol(2,2);"></button></td>
+                </tr>
+            </table>
+            <p><button class="ui-button" onclick="game.giveUp();">Rendirse</button></p>
+        </div>
+    </body>
+    <script>
+        game = new Game();
+        game.loadMenu();
+    </script>
+</html>

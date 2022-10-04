@@ -1,0 +1,167 @@
+*{
+    box-sizing: border-box;
+}
+
+html
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    text-align: center;
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.message-box
+{
+    background-color: rgba(255, 255, 255, 0.4);
+    display: none;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+.message-box-text
+{
+    color: white;
+    text-shadow: 0px 0px 4px black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.game-start-menu
+{
+    background-size: 50px;
+    border-radius: 32px;
+    min-width: fit-content;
+}
+
+.header
+{
+    color: white;
+    text-shadow: 0px 0px 10px black;
+}
+
+
+.leaderboard
+{
+    margin-left: auto;
+    margin-right:auto;
+    width:60%;
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f2f2f2e0;
+}
+
+.leaderboard tr:nth-child(odd) {
+    background-color: #ffffffdb;
+}
+
+.leaderboard thead {
+    font-weight: bold;
+    background-color: #ffffffe3;
+}
+
+.leaderboard tr:hover {
+    background-color: rgb(255, 128, 189);
+    color: white;    
+    transition-duration: 0.2s;
+}
+
+.player-name
+{
+    color: white;
+    text-shadow: 0px 0px 4px black;
+    font-weight: bold;
+}
+
+.player-input
+{
+    background: none;
+    border: none;
+    border-bottom: 2px solid gray;
+    transition-duration: 0.4s;
+    font-style: italic;
+    color:white;
+    text-shadow: 0px 0px 3px black;
+    font-weight: bold;
+    font-size:large;
+    text-align: right;
+}
+
+.player-input:hover
+{
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(255, 57, 153);
+    transition-duration: 0.4s;
+}
+
+.ui-button
+{
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 1%;
+    font-size: x-large;
+    transition-duration: 0.4s;
+}
+
+.ui-button:hover
+{
+    background-color: rgb(193, 129, 178);
+    transition-duration: 0.4s;
+    color:white;
+}
+
+.ui-button:active
+{
+    background-color: rgb(155, 103, 143);
+    transition-duration: 0.4s;
+}
+
+.game-div
+{
+    color:white;
+    font-size: xx-large;
+    text-shadow: 0px 0px 7px black;
+}
+
+.game-board
+{
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.game-board td{
+    border: 5px inset;
+    transition-duration: 0.4s;
+}
+
+.game-board td:hover{
+    background-color: rgba(188, 97, 141, 0.379);
+    color:whitesmoke;
+    transition-duration: 0.4s;
+}
+
+.board-button
+{
+    text-align: center;
+    font-size: xx-large;
+    background: none;
+    border: none;
+    transition-duration: 0.4s;
+    color:whitesmoke;
+    text-shadow: none;
+}
+
+.board-button:hover{
+    color:rgb(136, 85, 122);
+    transition-duration: 0.4s;
+    text-shadow: none;
+}
+
+.board-button:active
+{
+    transition-duration: 0.1s;
+    color:rgb(83, 52, 75);
+    text-shadow: 0px 0px 10px rgb(69, 0, 66);
+}
