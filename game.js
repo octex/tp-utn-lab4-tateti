@@ -41,12 +41,35 @@ class Player
     }
 }
 
+class Board
+{
+    constructor()
+    {
+        // game.board.getBoardElementByRowAndColumn(0, 0).getElementsByTagName('button')[0].innerText = 'X';
+        // Usar esto para cambiar el contenido y obtenerlo en las validaciones
+        this.gameBoard = document.getElementsByClassName('game-board')[0].tBodies[0];
+    }
+
+    getBoardElementByRowAndColumn(row, column)
+    {
+        return this.gameBoard.rows[row].cells[column];
+    }
+
+    isAWinner()
+    {
+        let firstPos = undefined;
+        let secondPos = undefined;
+        let thirdPos = undefined;
+    }
+}
+
 class PlayersManager
 {
     constructor()
     {
         this.player1 = null;
         this.player2 = null;
+        this.currentPlayer = null;
         this.ready = false;
     }
 
@@ -69,14 +92,20 @@ class PlayersManager
     {
         this.player2 = new Player(playerName, 'O');
     }
+
+    getPlayerBySymbol()
+    {
+        //TODO
+    }
 }
 
 class Game
 {
-    constructor(playerManager)
+    constructor()
     {
-        this.playerManager = playerManager;
+        this.playersManager = new PlayersManager();
         this.timer = new Timer();
+        this.board = new Board();
         this.gameBoard = document.getElementById("game");
         this.menu = document.getElementById("menu");
     }
@@ -93,7 +122,7 @@ class Game
     }
     giveUp()
     {
-
+        //TODO
     }
     renderTimer()
     {

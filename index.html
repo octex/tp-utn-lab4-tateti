@@ -8,39 +8,36 @@
     <body>
         <h1>Ta Te Ti!</h1>
         <div id="menu">
-            <script>
-                playersManager = new PlayersManager();
-            </script>
             <p>Jugador 1 <input type="text" id="player1Name"></p>
             <p>Jugador 2 <input type="text" id="player2Name"></p>
-            <input type="submit" value="Jugar!" onclick="playersManager.addPlayers();game.start();">
+            <input type="submit" value="Jugar!" onclick="game.playersManager.addPlayers();game.start();">
         </div>
 
         <div id="game">
             <p id="timer">Timer: </p>
             <p>Turno de jugador: </p>
-            <table id="board">
+            <table id="board" class="game-board">
                 <tr>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
+                    <td><button>1</button></td>
+                    <td><button>2</button></td>
+                    <td><button>3</button></td>
                 </tr>
                 <tr>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
+                    <td><button>4</button></td>
+                    <td><button>5</button></td>
+                    <td><button>6</button></td>
                 </tr>
                 <tr>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
-                    <td><button>#</button></td>
+                    <td><button>7</button></td>
+                    <td><button>8</button></td>
+                    <td><button>9</button></td>
                 </tr>
             </table>
             <p><button>Rendirse</button></p>
         </div>
     </body>
     <script>
-        game = new Game(playersManager);
+        game = new Game();
         game.loadMenu();
     </script>
 </html>
