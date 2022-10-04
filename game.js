@@ -1,6 +1,10 @@
+const X = 'X';
+const O = 'O';
+const BASE_TIMER_MINUTES = 1.5
+
 class Timer
 {
-    constructor(minutes=1.5)
+    constructor(minutes=BASE_TIMER_MINUTES)
     {
         this.baseTurnTimeInSeconds = 60 * minutes;
         this.timer = this.baseTurnTimeInSeconds;
@@ -71,8 +75,8 @@ class PlayersManager
     constructor()
     {
         this.players = {
-            "X": null,
-            "O": null
+            X: null,
+            O: null
         }
         this.currentPlayer = null;
         this.ready = false;
@@ -85,18 +89,18 @@ class PlayersManager
         //TODO: Validar que en los campos no vengan strings vacios
         this.addPlayer1(player1Name);
         this.addPlayer2(player2Name);
-        this.currentPlayer = this.players['X'];
+        this.currentPlayer = this.players[X];
         this.ready = true;
     }
 
     addPlayer1(playerName)
     {
-        this.players['X'] = new Player(playerName, 'X');
+        this.players[X] = new Player(playerName, X);
     }
 
     addPlayer2(playerName)
     {
-        this.players['O'] = new Player(playerName, 'O');
+        this.players[O] = new Player(playerName, O);
     }
 
     getPlayerBySymbol(symbol)
@@ -107,13 +111,13 @@ class PlayersManager
     getOppositePlayer()
     {
         let player = null
-        if (this.currentPlayer.getSymbol() == 'X')
+        if (this.currentPlayer.getSymbol() == X)
         {
-            player = this.players['O'];
+            player = this.players[O];
         }
         else
         {
-            player = this.players['X'];
+            player = this.players[X];
         }
         return player;
     }
@@ -134,12 +138,15 @@ class Game
         this.gameBoard = document.getElementById("game");
         this.menu = document.getElementById("menu");
         this.turnTxt = document.getElementById("turn-txt");
+        this.timerClock = undefined;
     }
 
     loadMenu()
     {
         this.menu.style.display = "";
         this.gameBoard.style.display = "none";
+        clearInterval(this.timerClock);
+        this.timer.resetTimer();
     }
 
     start()
@@ -147,7 +154,7 @@ class Game
         this.menu.style.display = "none";
         this.gameBoard.style.display = "";
         this.turnTxt.innerText = "Turno de jugador: " + this.playersManager.currentPlayer.getName();
-        setInterval(this.renderTimer.bind(this), 1000);
+        this.timerClock = setInterval(this.renderTimer.bind(this), 1000);
     }
 
     giveUp()
@@ -173,12 +180,12 @@ class Game
 
     drawSymbol(row, column)
     {
-        let cellContent = this.playersManager.currentPlayer.getSymbol();
         let currentCellContent = this.board.getBoardElementByRowAndColum(row, column);
-        if (currentCellContent == 'X' || currentCellContent == 'O')
+        if (currentCellContent == X || currentCellContent == O)
         {
             return;
         }
+        let cellContent = this.playersManager.currentPlayer.getSymbol();
         this.board.setBoardElementByRowAndColumn(row, column, cellContent);
         if (this.board.isAWinner())
         {
