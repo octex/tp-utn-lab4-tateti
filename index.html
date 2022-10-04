@@ -15,22 +15,22 @@
 
         <div id="game">
             <p id="timer">Timer: </p>
-            <p>Turno de jugador: </p>
+            <p id="turn-txt">Turno de jugador: </p>
             <table id="board" class="game-board">
                 <tr>
-                    <td><button>1</button></td>
-                    <td><button>2</button></td>
-                    <td><button>3</button></td>
+                    <td><button onclick="game.drawSymbol(0,0);">1</button></td>
+                    <td><button onclick="game.drawSymbol(0,1);">2</button></td>
+                    <td><button onclick="game.drawSymbol(0,2);">3</button></td>
                 </tr>
                 <tr>
-                    <td><button>4</button></td>
-                    <td><button>5</button></td>
-                    <td><button>6</button></td>
+                    <td><button onclick="game.drawSymbol(1,0);">4</button></td>
+                    <td><button onclick="game.drawSymbol(1,1);">5</button></td>
+                    <td><button onclick="game.drawSymbol(1,2);">6</button></td>
                 </tr>
                 <tr>
-                    <td><button>7</button></td>
-                    <td><button>8</button></td>
-                    <td><button>9</button></td>
+                    <td><button onclick="game.drawSymbol(2,0);">7</button></td>
+                    <td><button onclick="game.drawSymbol(2,1);">8</button></td>
+                    <td><button onclick="game.drawSymbol(2,2);">9</button></td>
                 </tr>
             </table>
             <p><button>Rendirse</button></p>

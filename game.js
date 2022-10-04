@@ -37,7 +37,7 @@ class Player
 
     getSymbol()
     {
-        return this.getSymbol;
+        return this.playerSymbol;
     }
 }
 
@@ -45,14 +45,17 @@ class Board
 {
     constructor()
     {
-        // game.board.getBoardElementByRowAndColumn(0, 0).getElementsByTagName('button')[0].innerText = 'X';
-        // Usar esto para cambiar el contenido y obtenerlo en las validaciones
         this.gameBoard = document.getElementsByClassName('game-board')[0].tBodies[0];
     }
 
-    getBoardElementByRowAndColumn(row, column)
+    setBoardElementByRowAndColumn(row, column, content)
     {
-        return this.gameBoard.rows[row].cells[column];
+        this.gameBoard.rows[row].cells[column].getElementsByTagName('button')[0].innerText = content;
+    }
+
+    getBoardElementByRowAndColum(row, column)
+    {
+        return this.gameBoard.rows[row].cells[column].getElementsByTagName('button')[0].innerText;
     }
 
     isAWinner()
@@ -67,8 +70,10 @@ class PlayersManager
 {
     constructor()
     {
-        this.player1 = null;
-        this.player2 = null;
+        this.players = {
+            "X": null,
+            "O": null
+        }
         this.currentPlayer = null;
         this.ready = false;
     }
@@ -80,22 +85,42 @@ class PlayersManager
         //TODO: Validar que en los campos no vengan strings vacios
         this.addPlayer1(player1Name);
         this.addPlayer2(player2Name);
+        this.currentPlayer = this.players['X'];
         this.ready = true;
     }
 
     addPlayer1(playerName)
     {
-        this.player1 = new Player(playerName, 'X');
+        this.players['X'] = new Player(playerName, 'X');
     }
 
     addPlayer2(playerName)
     {
-        this.player2 = new Player(playerName, 'O');
+        this.players['O'] = new Player(playerName, 'O');
     }
 
-    getPlayerBySymbol()
+    getPlayerBySymbol(symbol)
     {
-        //TODO
+        return this.players[symbol];
+    }
+
+    getOppositePlayer()
+    {
+        let player = null
+        if (this.currentPlayer.getSymbol() == 'X')
+        {
+            player = this.players['O'];
+        }
+        else
+        {
+            player = this.players['X'];
+        }
+        return player;
+    }
+
+    switchTurn()
+    {
+        this.currentPlayer = this.getOppositePlayer();
     }
 }
 
@@ -108,26 +133,61 @@ class Game
         this.board = new Board();
         this.gameBoard = document.getElementById("game");
         this.menu = document.getElementById("menu");
+        this.turnTxt = document.getElementById("turn-txt");
     }
+
     loadMenu()
     {
         this.menu.style.display = "";
         this.gameBoard.style.display = "none";
     }
+
     start()
     {
         this.menu.style.display = "none";
         this.gameBoard.style.display = "";
+        this.turnTxt.innerText = "Turno de jugador: " + this.playersManager.currentPlayer.getName();
         setInterval(this.renderTimer.bind(this), 1000);
     }
+
     giveUp()
     {
-        //TODO
+        let winner = this.playersManager.getOppositePlayer();
+        // Run game over sequence and declare opposite player as winner
     }
+
     renderTimer()
     {
         let timerStr = "Timer " + parseInt(this.timer.getTimer() / 60) + ":" + this.timer.getTimer() % 60;
         document.getElementById("timer").innerHTML = timerStr;
         this.timer.substractTimer();
+    }
+
+    checkTimer()
+    {
+        if (this.timer.getTimer() == 0)
+        {
+            // Run game over sequence and call it an ace
+        }
+    }
+
+    drawSymbol(row, column)
+    {
+        let cellContent = this.playersManager.currentPlayer.getSymbol();
+        let currentCellContent = this.board.getBoardElementByRowAndColum(row, column);
+        if (currentCellContent == 'X' || currentCellContent == 'O')
+        {
+            return;
+        }
+        this.board.setBoardElementByRowAndColumn(row, column, cellContent);
+        if (this.board.isAWinner())
+        {
+            // Run win game sequence
+        }
+        else
+        {
+            this.playersManager.switchTurn();
+            this.turnTxt.innerText = "Turno de jugador: " + this.playersManager.currentPlayer.getName();
+        }
     }
 }
