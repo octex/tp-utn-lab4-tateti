@@ -1,7 +1,7 @@
 const X = 'X';
 const O = 'O';
 const BLANK_SLOT = 'ㅤ';
-const BASE_TIMER_MINUTES = 1.5
+const BASE_TIMER_MINUTES = 30
 const TIE = "Empate"
 const KEY_MATCHES_SAVE = 'matches'
 
@@ -286,7 +286,9 @@ class Game
     renderTimer()
     {
         this.checkTimerNotZero();
-        let timerStr = "Timer " + parseInt(this.timer.getTimer() / 60) + ":" + this.timer.getTimer() % 60;
+        let timerMinutesStr = parseInt(this.timer.getTimer() / 60).toString().padStart(2, '0');
+        let timerSecondsStr = (this.timer.getTimer() % 60).toString().padStart(2, '0');
+        let timerStr = "Timer " + timerMinutesStr + ":" + timerSecondsStr;
         document.getElementById("timer").innerHTML = timerStr;
         this.timer.substractTimer();
     }
