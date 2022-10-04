@@ -1,7 +1,7 @@
 const X = 'X';
 const O = 'O';
 const BLANK_SLOT = 'ㅤ';
-const BASE_TIMER_MINUTES = 30
+const BASE_TIMER_MINUTES = 1.5
 const TIE = "Empate"
 const KEY_MATCHES_SAVE = 'matches'
 
@@ -241,6 +241,7 @@ class Game
         this.timerClock = undefined;
         this.winner = null;
         this.board.clearBoard();
+        this.messageBox = new MessageBox();
     }
 
     resetGameProperties()
@@ -275,11 +276,13 @@ class Game
         this.resetGameProperties();
         this.generateMatchData();
         this.loadMenu();
+        this.messageBox.sendMessage();
     }
 
     giveUp()
     {
         this.winner = this.playersManager.getOppositePlayer().getName();
+        this.messageBox.setMessage("Ganador: " + this.winner + '!');
         this.gameOver();
     }
 
@@ -298,6 +301,7 @@ class Game
         if (this.timer.getTimer() == 0)
         {
             this.winner = TIE;
+            this.messageBox.setMessage("Se acabo el tiempo! Es un empate!");
             this.gameOver();
         }
     }
@@ -314,11 +318,13 @@ class Game
         if (this.board.isAWinner(this.playersManager.currentPlayer.getSymbol()))
         {
             this.winner = this.playersManager.currentPlayer.getName();
+            this.messageBox.setMessage("Ganador: " + this.winner + '!');
             this.gameOver();
         }
         else if (this.board.areAllSlotsFull())
         {
             this.winner = TIE;
+            this.messageBox.setMessage("Empate!");
             this.gameOver();
         }
         else
@@ -344,6 +350,28 @@ class Match
         this.player1 = player1;
         this.player2 = player2;
         this.winner = winner;
+    }
+}
+
+class MessageBox
+{
+    constructor()
+    {
+        this.message = "";
+        this.element = document.getElementById("message-box");
+        this.messageText = document.getElementById("message-box-text");
+    }
+    sendMessage()
+    {
+        this.element.style.display = "inline-block";
+    }
+    hideMessage()
+    {
+        this.element.style.display = "none";
+    }
+    setMessage(message)
+    {
+        this.messageText.innerText = message;
     }
 }
 
