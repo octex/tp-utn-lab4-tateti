@@ -240,6 +240,7 @@ class Game
         this.turnTxt = document.getElementById("turn-txt");
         this.timerClock = undefined;
         this.winner = null;
+        this.board.clearBoard();
     }
 
     resetGameProperties()
@@ -387,9 +388,11 @@ function generateLeaderBoardTable()
     headerCell = headerRow.insertCell();
     headerCell.innerText = "Ganador"
 
+    let tableBody = tableElement.createTBody();
+
     for(let i = 0; i < matchesData.length; i++)
     {
-        let tableRow = tableElement.insertRow();
+        let tableRow = tableBody.insertRow();
         let jugador1 = tableRow.insertCell();
         let jugador2 = tableRow.insertCell();
         let ganador = tableRow.insertCell();

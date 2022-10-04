@@ -8,27 +8,73 @@ html
     font-size: large;
     /* background-image: url(bck.jpg); */
     text-align: center;
-    transition-duration: 0.4s;
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 .game-start-menu
 {
-
+    background-color: rgba(255, 255, 255, 0.58);
+    max-width: 50%;
+    margin-left: auto;
+    margin-right:auto;
+    border-radius: 32px;
 }
 
 .header
 {
-    /* color: white; */
+    color: white;
+    text-shadow: 0px 0px 10px black;
 }
 
 
 .leaderboard
 {
-    border:1px solid black;
     margin-left: auto;
     margin-right:auto;
-    width:75%;
+    width:60%;
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f2f2f2e0;
+}
+
+.leaderboard tr:nth-child(odd) {
+    background-color: #ffffffdb;
+}
+
+.leaderboard thead {
+    font-weight: bold;
+    background-color: #ffffffe3;
+}
+
+.leaderboard tr:hover {
+    background-color: rgb(255, 128, 189);
+    color: white;
+    font-weight: bold;
+    transition-duration: 0.2s;
+}
+
+.player-name
+{
+    color: white;
+    text-shadow: 0px 0px 4px black;
+}
+
+.start-button
+{
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 1%;
+    font-size: x-large;
+    transition-duration: 0.4s;
+}
+
+.start-button:hover
+{
+    background-color: rgb(193, 129, 178);
+    transition-duration: 0.4s;
+    color:white;
 }
 
 .game-board
@@ -42,27 +88,3 @@ html
     text-align: center;
     font-size: x-large;
 }
-/* .menu
-{
-    height:0;
-    width:20%;
-    padding-top: 2%;
-    padding-bottom:10%;
-    background-color:rgba(255, 255, 255, 0.465);
-    text-align: center;
-    align-items: center;
-    color: aliceblue;
-    font-weight: bold;
-}
-
-.game-div
-{
-    height:0;
-    width:20%;
-    padding-bottom:15%;
-    background-color:rgba(255, 255, 255, 0.465);
-    text-align: center;
-    align-items: center;
-    color: aliceblue;
-    font-weight: bold;
-} */
