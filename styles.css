@@ -1,15 +1,48 @@
+*{
+    box-sizing: border-box;
+}
+
 html
 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url(bck.jpg);
+    font-size: large;
+    /* background-image: url(bck.jpg); */
+    text-align: center;
+    transition-duration: 0.4s;
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.game-start-menu
+{
+
 }
 
 .header
 {
-    color: white;
+    /* color: white; */
 }
 
-.menu
+
+.leaderboard
+{
+    border:1px solid black;
+    margin-left: auto;
+    margin-right:auto;
+    width:75%;
+}
+
+.game-board
+{
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.board-button
+{
+    text-align: center;
+    font-size: x-large;
+}
+/* .menu
 {
     height:0;
     width:20%;
@@ -32,4 +65,4 @@ html
     align-items: center;
     color: aliceblue;
     font-weight: bold;
-}
+} */

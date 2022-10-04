@@ -1,6 +1,6 @@
 const X = 'X';
 const O = 'O';
-const BLANK_SLOT = '';
+const BLANK_SLOT = 'ㅤ';
 const BASE_TIMER_MINUTES = 1.5
 const TIE = "Empate"
 const KEY_MATCHES_SAVE = 'matches'
@@ -341,16 +341,6 @@ class Match
         this.player1 = player1;
         this.player2 = player2;
         this.winner = winner;
-    }
-
-    getMatchData()
-    {
-        data = {
-            "player1": this.player1,
-            "player2": this.player2,
-            "winner": this.winner
-        }
-        return data;
     }
 }
 
