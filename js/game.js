@@ -70,12 +70,12 @@ class Board
     {
         for (let i = 0; i < 3; i++)
         {
-            this.setBoardElementByRowAndColumn(i, 0, '');
-            this.setBoardElementByRowAndColumn(i, 1, '');
-            this.setBoardElementByRowAndColumn(i, 2, '');
-            this.setBoardElementByRowAndColumn(0, i, '');
-            this.setBoardElementByRowAndColumn(1, i, '');
-            this.setBoardElementByRowAndColumn(2, i, '');
+            this.setBoardElementByRowAndColumn(i, 0, BLANK_SLOT);
+            this.setBoardElementByRowAndColumn(i, 1, BLANK_SLOT);
+            this.setBoardElementByRowAndColumn(i, 2, BLANK_SLOT);
+            this.setBoardElementByRowAndColumn(0, i, BLANK_SLOT);
+            this.setBoardElementByRowAndColumn(1, i, BLANK_SLOT);
+            this.setBoardElementByRowAndColumn(2, i, BLANK_SLOT);
         }
     }
 
@@ -96,36 +96,44 @@ class Board
         return true;
     }
 
-    isAWinner(player)
+    checkCells(firstPos, secondPos, thirdPos, playerSymbol)
+    {
+        if (firstPos == playerSymbol &&
+                secondPos == playerSymbol &&
+                thirdPos == playerSymbol)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    isAWinner(playerSymbol)
     {
         let firstPos = null;
         let secondPos = null;
         let thirdPos = null;
-        // Horizontal compare
+        let cellCheck = null;
+
         for (let i = 0; i < 3; i++)
         {
+            // Horizontal compare
             firstPos = this.getBoardElementByRowAndColum(i, 0);
             secondPos = this.getBoardElementByRowAndColum(i, 1);
             thirdPos = this.getBoardElementByRowAndColum(i, 2);
-            if (firstPos == player.getSymbol() &&
-                secondPos == player.getSymbol() &&
-                thirdPos == player.getSymbol())
+            cellCheck = this.checkCells(firstPos, secondPos, thirdPos, playerSymbol);
+            if (cellCheck)
             {
-                return true;
+                return cellCheck;
             }
-        }
 
-        // Vertical compare
-        for (let i = 0; i < 3; i++)
-        {
+            // Vertical compare
             firstPos = this.getBoardElementByRowAndColum(0, i);
             secondPos = this.getBoardElementByRowAndColum(1, i);
             thirdPos = this.getBoardElementByRowAndColum(2, i);
-            if (firstPos == player.getSymbol() &&
-                secondPos == player.getSymbol() &&
-                thirdPos == player.getSymbol())
+            cellCheck = this.checkCells(firstPos, secondPos, thirdPos, playerSymbol);
+            if (cellCheck)
             {
-                return true;
+                return cellCheck;
             }
         }
 
@@ -133,22 +141,20 @@ class Board
         firstPos = this.getBoardElementByRowAndColum(0, 0);
         secondPos = this.getBoardElementByRowAndColum(1, 1);
         thirdPos = this.getBoardElementByRowAndColum(2, 2);
-        if (firstPos == player.getSymbol() &&
-            secondPos == player.getSymbol() &&
-            thirdPos == player.getSymbol())
+        cellCheck = this.checkCells(firstPos, secondPos, thirdPos, playerSymbol);
+        if (cellCheck)
         {
-            return true;
+            return cellCheck;
         }
 
         // Diagonal right compare
         firstPos = this.getBoardElementByRowAndColum(0, 2);
         secondPos = this.getBoardElementByRowAndColum(1, 1);
         thirdPos = this.getBoardElementByRowAndColum(2, 0);
-        if (firstPos == player.getSymbol() &&
-            secondPos == player.getSymbol() &&
-            thirdPos == player.getSymbol())
+        cellCheck = this.checkCells(firstPos, secondPos, thirdPos, playerSymbol);
+        if (cellCheck)
         {
-            return true;
+            return cellCheck;
         }
 
         return false;
@@ -302,7 +308,7 @@ class Game
         }
         let cellContent = this.playersManager.currentPlayer.getSymbol();
         this.board.setBoardElementByRowAndColumn(row, column, cellContent);
-        if (this.board.isAWinner(this.playersManager.currentPlayer))
+        if (this.board.isAWinner(this.playersManager.currentPlayer.getSymbol()))
         {
             this.winner = this.playersManager.currentPlayer.getName();
             this.gameOver();
@@ -378,6 +384,19 @@ function generateLeaderBoardTable()
 {
     let matchesData = getMatchesData();
     let tableElement = document.getElementById('leaderboard');
+
+    tableElement.innerHTML = '';
+
+    let tableHeader = tableElement.createTHead();
+    let headerRow = tableHeader.insertRow();
+    let headerCell = headerRow.insertCell();
+
+    headerCell.innerText = "Jugador 1"
+    headerCell = headerRow.insertCell();
+    headerCell.innerText = "Jugador 2"
+    headerCell = headerRow.insertCell();
+    headerCell.innerText = "Ganador"
+
     for(let i = 0; i < matchesData.length; i++)
     {
         let tableRow = tableElement.insertRow();
